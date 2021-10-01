@@ -1,16 +1,17 @@
 {
   "name": "repair_game",
   "version": "0.0.1",
-  "description": "",
+  "description": "Repair game by @DJOG",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "start-compile": "tsc --watch",
+      "start-run": "browser-sync start --server -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/p5": "^0.9.0",
     "typescript": "^4.4.3",
-    "browser-sync": "^2.26.12"
+    "browser-sync": "^2.27.5"
   }
 }
