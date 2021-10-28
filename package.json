@@ -2,7 +2,6 @@
   "name": "repair_game",
   "version": "0.0.1",
   "description": "Repair game by @DJOG",
-  "main": "index.js",
   "scripts": {
       "start-compile": "tsc --watch",
       "start-run": "browser-sync start --server -w"
@@ -10,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/p5": "^0.9.0",
-    "typescript": "^4.4.3",
     "browser-sync": "^2.27.5"
   }
 }
