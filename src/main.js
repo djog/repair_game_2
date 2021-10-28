@@ -1,8 +1,10 @@
-let test_minigame = new Test();
+let mainGame;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   frameRate(60);
+
+  mainGame = new Game();
 }
 
 function windowResized() {
@@ -10,5 +12,5 @@ function windowResized() {
 }
 
 function draw() {
-  test_minigame.draw();
+  mainGame.draw();
 }
