@@ -1,38 +1,30 @@
 class Game extends Minigame {
-    constructor() {
-        super();
+    onStart() {
         this.world = new World();
         this.cameraPos = createVector(0, 0);
         this.player = new Player();
     }
 
-    setup() {
-
-
-    }
-
-    update(dt) {
+    onUpdate(dt) {
         this.framerate = 1 / (deltaTime / 1000);
 
-        this.world.update();
         this.player.update();
 
         this.cameraPos = p5.Vector.lerp(this.cameraPos, this.player.pos, dt * 2.0);
+
+        if (keyIsDown(32)) {
+            return MINIGAMES.TEST;
+        }
     }
 
-    draw() {
-        this.update(deltaTime / 1000);
-
+    onDraw() {
         // Draw
         background(230);
-        push();
-        {
-            translate(this.cameraPos.x + width / 2, this.cameraPos.y + height /2);
-            this.world.draw();
 
-            this.player.draw();
-        }
-        pop();
+        translate(-this.cameraPos.x + width / 2, -this.cameraPos.y + height / 2);
+        this.world.draw();
+
+        this.player.draw();
 
 
         fill(50);

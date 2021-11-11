@@ -1,10 +1,10 @@
-var mainGame;
+var stateManager;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  mainGame = new Game();
+  stateManager = new StateManager();
 }
 
 function windowResized() {
@@ -12,5 +12,5 @@ function windowResized() {
 }
 
 function draw() {
-  mainGame.draw();
+  stateManager.updateFrame();
 }

@@ -8,10 +8,6 @@ class World {
             this.tiles[x] = new Array(WORLD_SIZE);
         }
     }
-
-    update() {
-        
-    }
     
     draw() {
         for (let x = 0; x < WORLD_SIZE; x++) {

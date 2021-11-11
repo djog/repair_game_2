@@ -1,17 +1,17 @@
 class Test extends Minigame {
-    constructor() {
-        super();
-        this.x = 0;
+    onStart() {
+        this.world = new World();
+        this.cameraPos = createVector(0, 0);
+        this.player = new Player();
     }
 
-    setup() {
-        console.log("Setup test!");
+    onUpdate(dt) {
+        
     }
 
-    draw() {
-        this.x += 5;
-        background(200);
-        fill(225, 200, 30);
-        circle(this.x - 500, 0, 50);
+    onDraw() {
+        background(100);
+        fill(30)
+        rect(10, 10, 100, 100);
     }
 }
