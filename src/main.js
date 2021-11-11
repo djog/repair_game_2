@@ -1,4 +1,4 @@
-let mainGame;
+var mainGame;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);

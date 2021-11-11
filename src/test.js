@@ -1,5 +1,4 @@
 class Test extends Minigame {
-
     constructor() {
         super();
         this.x = 0;
