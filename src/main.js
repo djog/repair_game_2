@@ -1,10 +1,10 @@
 let mainGame;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
-  mainGame = new Game();
+  mainGame = new BoltsGame();
 }
 
 function windowResized() {
