@@ -5,7 +5,7 @@ class Minigame {
     onStop() { };
 }
 
-const MINIGAMES = { "GAME": 0, "TEST": 1 }
+const MINIGAMES = { "GAME": 0, "TEST": 1, "BOLTS": 2 }
 Object.freeze(MINIGAMES);
 const DEFAULT_MINIGAME = MINIGAMES.GAME;
 
@@ -23,6 +23,8 @@ class StateManager {
                 return new Game();
             case MINIGAMES.TEST:
                 return new Test();
+            case MINIGAMES.BOLTS:
+                return new BoltsGame();
         }
         throw 'Unkown state!';
     }

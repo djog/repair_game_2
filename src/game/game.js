@@ -13,7 +13,7 @@ class Game extends Minigame {
         this.cameraPos = p5.Vector.lerp(this.cameraPos, this.player.pos, dt * 2.0);
 
         if (keyIsDown(32)) {
-            return MINIGAMES.TEST;
+            return MINIGAMES.BOLTS;
         }
     }
 
