@@ -6,7 +6,8 @@ class Game extends Minigame {
     }
 
     setup() {
-        console.log("Setup test!");
+       
+
     }
 
     update() {
@@ -25,9 +26,12 @@ class Game extends Minigame {
         this.player.draw();
 
         let fps = 1 / (deltaTime / 1000);
-        fill(0);
-        textSize(18);
-        textAlign(LEFT, TOP);
-        text('FPS: ' + fps.toString(), 10, 10);
+        fill(50);
+        
+        // textFont(this.font);
+        // textSize(24);
+        // textAlign(LEFT, TOP);
+        // textFont('serif');
+        // text('FPS: ' + Math.round(fps), 10, 10);
     }
 }

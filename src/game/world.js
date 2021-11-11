@@ -21,7 +21,6 @@ class World {
                 rectMode(CORNER);
                 fill(255, 255, 0);
                 rect(drawX, drawY, TILE_SIZE, TILE_SIZE);
-                
             }
         }
     }
