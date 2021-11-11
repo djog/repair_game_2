@@ -1,12 +1,7 @@
-let mainGame;
+var mainGame;
 
-var testFont;
-function preload() {
-  testFont = loadFont('/assets/fonts/Inconsolata-Bold.ttf');
-}
 function setup() {
-https://p5js.org/examples/structure-create-graphics.html
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight);
   frameRate(60);
 
   mainGame = new Game();
