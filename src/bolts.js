@@ -1,6 +1,5 @@
 class BoltsGame extends Minigame {
   onStart() {
-    console.log("Setup test!");
     this.player = new Player();
   }
 

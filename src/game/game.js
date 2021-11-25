@@ -18,20 +18,18 @@ class Game extends Minigame {
     }
 
     onDraw() {
-        // Draw
         background(230);
 
+        push();
         translate(-this.cameraPos.x + width / 2, -this.cameraPos.y + height / 2);
         this.world.draw();
-
         this.player.draw();
+        pop();
 
-
-        fill(50);
-
+        fill(250);
         textSize(24);
         textAlign(LEFT, TOP);
-        textFont('serif');
+        textFont('sans-serif');
         text('FPS: ' + Math.round(this.framerate), 10, 10);
     }
 }
