@@ -3,7 +3,7 @@ var stateManager;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
-
+  
   stateManager = new StateManager();
 }
 
