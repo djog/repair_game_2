@@ -1,12 +1,81 @@
 const TileDistance = 60;
 const TileWidth = 55;
 const TileHeight = 55;
+var hours = 0;
+var minutes = 0;
+var seconds = 0;
+var stoptime = true
 
 class NumbersMiniGame extends Minigame {
 
     constructor() {
         super();
         this.lastPressedNumber = 0;
+        this.startTimer();
+    }
+
+    startTimer() {
+        if(stoptime == true) {
+            stoptime = false;
+            this.timerCycle();
+        }
+        
+    }
+
+
+    stoptimer() {
+        if (stoptime == false){
+          stoptime = true;
+ 
+        } 
+        
+        
+    }
+
+    timerCycle() {
+        debugger;
+        if (stoptime == false) {
+        
+        seconds = seconds + 1;
+
+        if (seconds == 60) {
+            minutes = minutes + 1;
+            seconds = 0;
+        }
+        if (minutes == 60) {
+            hours = hours + 1;
+            minutes = 0;
+            seconds = 0;
+        }
+
+
+        let hrs = hours;
+        let mins = minutes;
+        let secs = seconds;
+        if (seconds < 10 || seconds == 0) {
+            secs = '0' + seconds;
+        }
+        if (minutes < 10 || min == 0) {
+            mins = '0' + minutes;
+        }
+        if (hours < 10  || hours == 0) {
+            hrs = '0'  + hours;
+        }
+    
+        this.time = `${hrs}:${mins}:${secs}`;
+
+        setTimeout(()=>this.timerCycle(), 1000);
+      }
+        
+    }
+
+    resetTimer() {
+        timer.innerHTML = '00:00:00';
+
+        hours = 0;
+        seconds = 0;
+        min = 0;
+        
     }
 
     onStart() {
@@ -75,6 +144,9 @@ class NumbersMiniGame extends Minigame {
         textSize(32);
         strokeWeight(2);
         stroke(0);
+
+        fill(textColor);
+        text(this.time, 100,50);
         
         for (let j = 0; j < 2; j++)
         {
