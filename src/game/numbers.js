@@ -33,7 +33,6 @@ class NumbersMiniGame extends Minigame {
     }
 
     timerCycle() {
-        debugger;
         if (stoptime == false) {
         
         seconds = seconds + 1;
@@ -126,7 +125,7 @@ class NumbersMiniGame extends Minigame {
 
 
     mousePressed() {
-        debugger;
+        
         //question
     }
 
