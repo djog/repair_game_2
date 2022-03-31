@@ -1,4 +1,6 @@
 class BoltsGame extends Minigame {
+  lost = false;
+
   onStart() {
     this.x = 100;
     this.y = 100;
@@ -6,10 +8,16 @@ class BoltsGame extends Minigame {
     this.y2= 649;
     this.x3= 30;
     this.y3= 660 ;
+    setTimeout(()=>{
+      if (this.lost == false){
+        console.log("win")
+      }
+    }, 10000)
   }
 
   onUpdate(dt) {
-  if (this.x < 620){
+  
+    if (this.x < 620){
     this.x+=4
     this.y+=3;
   }
@@ -44,12 +52,15 @@ class BoltsGame extends Minigame {
     this.x3 = 30;
   }
   if (this.x == 620 && this.y == 490){
+    this.lost =true;
     console.log("lost")
   }
   if (this.x2 == 727 && this.y2 == 259){
+    this.lost =true;
     console.log("lost")
   }
   if (this.x3 == 582 && this.y3 == 246){
+    this.lost =true;
     console.log("lost")
   }
 
@@ -65,6 +76,6 @@ class BoltsGame extends Minigame {
     rect(this.x, this.y, 50, 50);
     rect(this.x2, this.y2, 50, 50);
     rect(this.x3, this.y3, 50, 50);
-  
+  Text("hello");
   }
 }
