@@ -70,12 +70,35 @@ class BoltsGame extends Minigame {
 
   onDraw() {
     background(255);
-    fill(230)
+    if(this.lost == false ){
+    textSize(100);
+    let textColor = color(0,0,0);
+    fill(textColor);
+    textAlign(CENTER);
+    text("survive 10 seconds", 0,100, width);
+    }
+
+
+    // cubes
+    if(this.lost == false)
+    {
+     
+      fill(230);
     rect(560, 245, 270, 300);
     rect(mouseX, mouseY, 50, 50);
     rect(this.x, this.y, 50, 50);
     rect(this.x2, this.y2, 50, 50);
     rect(this.x3, this.y3, 50, 50);
-  Text("hello");
+    }
+    
+    //lost text
+    if (this.lost == true)
+    {   
+      textSize(200);
+      let textColor = color(255,0,0);
+      fill(textColor);
+      textAlign(CENTER);
+      text("you lost!!!", 0,200, width);
+    }
   }
 }
