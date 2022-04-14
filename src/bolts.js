@@ -1,104 +1,156 @@
+class Box {
+  x;
+  y;
+  h;
+  w;
+  constructor(x, y, h, w) {
+    this.x = x;
+    this.y = y;
+    this.h = h;
+    this.w = w;
+  }
+  moveTo(x, y) {
+    if (this.x < x) {
+      this.x += 4;
+    }
+    else {
+      this.x -= 4;
+    }
+    if (this.y < y) {
+      this.y += 3;
+    }
+    else {
+      this.y -= 3;
+    }
+  }
+  checkCollision(box) {
+    let distance = dist(this.x, this.y, box.x, box.y);
+    return (
+      (this.x > box.x && this.x < box.x + box.w && this.y > box.y && this.y < box.y + box.h)
+      ||(this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y > box.y && this.y < box.y + box.h)
+      ||(this.x > box.x && this.x < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
+      ||(this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
+    );
+  }
+}
 class BoltsGame extends Minigame {
   lost = false;
+  win = false;
+  end = false;
+  boxes = [];
+  endBox = new Box
+    (
+      560, 275, 200, 200
+    );
+  currentSide = 0 ;
 
   onStart() {
-    this.x = 100;
-    this.y = 100;
-    this.x2= 1359;
-    this.y2= 649;
-    this.x3= 30;
-    this.y3= 660 ;
-    setTimeout(()=>{
-      if (this.lost == false){
-        console.log("win")
+
+    this.boxes.push(new Box(100, 100, 50, 50));
+    this.boxes.push(new Box(1359, 649, 50, 50));
+    this.boxes.push(new Box(30, 660, 50, 50));
+
+    setTimeout(() => {
+      if (this.end == false) {
+        if (this.lost == false) {
+          this.win = true;
+          console.log("win")
+        }
       }
     }, 10000)
   }
 
   onUpdate(dt) {
-  
-    if (this.x < 620){
-    this.x+=4
-    this.y+=3;
-  }
 
-  if (this.x2 > 730){
-      this.x2-=4;
+    for (let box of this.boxes) {
+      box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2 ) );
+    }
 
-  }
-  if (this.y2 > 260){
-    this.y2-=3;
-  }
-    if (this.x3 < 580){
-     this.x3+=4;
-      this.y3-=3;
-}
+    let mouseBox = new Box(
+      mouseX, mouseY, 50, 50
+    );
 
-  let distance = dist(this.x, this.y, mouseX, mouseY);
-  if (distance < 50){
-    this.y = 0;
-    this.x = 0;
-  }
-  
-  let distance2 = dist(this.x2, this.y2, mouseX, mouseY);
-  if (distance2 < 50){
-    this.y2 = 649;
-    this.x2 = 1359;
-  }
-  
-  let distance3 = dist(this.x3, this.y3, mouseX, mouseY);
-  if (distance3 < 50){
-    this.y3 = 660;
-    this.x3 = 30;
-  }
-  if (this.x == 620 && this.y == 490){
-    this.lost =true;
-    console.log("lost")
-  }
-  if (this.x2 == 727 && this.y2 == 259){
-    this.lost =true;
-    console.log("lost")
-  }
-  if (this.x3 == 582 && this.y3 == 246){
-    this.lost =true;
-    console.log("lost")
-  }
+    for (let box of this.boxes) {
+    if(
+      box.checkCollision(mouseBox)
+    )
+    {
+      this.currentSide ++;
+      if (this.currentSide == 0)
+      {
+        box.x = Math.random() * 1300 + 100;
+        box.y = 100;
+      }
+      if (this.currentSide == 1){
+        box.x = 1100;
+        box.y = Math.random()* 550 + 100;
+      }
+      if (this.currentSide == 2)
+      {
+        box.x = Math.random() * 1300 + 100;
+        box.y = 600;
+      }
+      if(this.currentSide == 3)
+      {
+        box.x = 100;
+        box.y = Math.random()* 550 + 100;
+        this.currentSide = -1;
+      }
+    }
+    }
 
 
+    for (let box of this.boxes) {
+      console.log (dist(box.x,box.y,this.endBox.x,this.endBox.y));
+      if(
+      box.checkCollision(this.endBox)
+      )
+      {
+        this.lost = true;
+      }
+    }
 
   }
 
   onDraw() {
     background(255);
-    if(this.lost == false ){
-    textSize(100);
-    let textColor = color(0,0,0);
-    fill(textColor);
-    textAlign(CENTER);
-    text("survive 10 seconds", 0,100, width);
-    }
 
-
-    // cubes
-    if(this.lost == false)
-    {
-     
-      fill(230);
-    rect(560, 245, 270, 300);
-    rect(mouseX, mouseY, 50, 50);
-    rect(this.x, this.y, 50, 50);
-    rect(this.x2, this.y2, 50, 50);
-    rect(this.x3, this.y3, 50, 50);
-    }
-    
-    //lost text
-    if (this.lost == true)
-    {   
+    if (this.win == true) {
       textSize(200);
-      let textColor = color(255,0,0);
+      let textColor = color(0, 199, 0);
       fill(textColor);
       textAlign(CENTER);
-      text("you lost!!!", 0,200, width);
+      text("You Win!!!", 0, 200, width);
+      this.end = true;
+    }
+
+    // cubes
+    if (this.end == false) {
+      if (this.lost == false && this.win == false) {
+        textSize(100);
+        let textColor = color(0, 0, 0);
+        fill(textColor);
+        textAlign(CENTER);
+        text("Survive 10 seconds", 0, 100, width);
+
+        fill(230);
+        rect(this.endBox.x, this.endBox.y, this.endBox.h, this.endBox.w);
+        rect(mouseX, mouseY, 50, 50);
+        for (let box of this.boxes) {
+          rect(box.x, box.y, box.w, box.h);
+        }
+
+      }
+
+      //lost text
+      if (this.lost == true) {
+        textSize(200);
+        let textColor = color(255, 0, 0);
+        fill(textColor);
+        textAlign(CENTER);
+        text("You Lost!!!", 0, 200, width);
+        console.log("lost")
+      }
     }
   }
 }
