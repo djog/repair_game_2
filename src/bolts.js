@@ -1,26 +1,30 @@
 class Box {
+  Vx;
+  Vy;
   x;
   y;
   h;
   w;
-  constructor(x, y, h, w) {
+  constructor(x, y, h, w,Vx ,Vy) {
     this.x = x;
     this.y = y;
     this.h = h;
     this.w = w;
+    this.Vx = Vx;
+    this.Vy = Vy;
   }
   moveTo(x, y) {
     if (this.x < x) {
-      this.x += 4;
+      this.x += this.Vx;
     }
     else {
-      this.x -= 4;
+      this.x -= this.Vx;
     }
     if (this.y < y) {
-      this.y += 3;
+      this.y += this.Vy;
     }
     else {
-      this.y -= 3;
+      this.y -= this.Vy;
     }
   }
   checkCollision(box) {
@@ -40,15 +44,20 @@ class BoltsGame extends Minigame {
   boxes = [];
   endBox = new Box
     (
-      560, 275, 200, 200
+      560, 275, 200, 200 ,0 ,0
     );
   currentSide = 0 ;
 
   onStart() {
 
-    this.boxes.push(new Box(100, 100, 50, 50));
-    this.boxes.push(new Box(1359, 649, 50, 50));
-    this.boxes.push(new Box(30, 660, 50, 50));
+    this.boxes.push(new Box(100, 100, 50, 50, 3, 2.5));
+    this.boxes.push(new Box(1359, 649, 50, 50, 3, 2.5));
+    this.boxes.push(new Box(30, 660, 50, 50, 3,2.5));
+  //  for (let i = 0; i < 100; i++){
+    //  this.boxes.push(new Box(30, 660, 10, 10, 0.9 , 0.9 ));
+      // this.boxes.push(new Box(0, 0, 10, 10, 0.9 , 0.9 ));
+      // this.boxes.push(new Box(1359, 649, 10, 10, 0.9 , 0.9 ));
+  //  }
 
     setTimeout(() => {
       if (this.end == false) {
@@ -67,11 +76,12 @@ class BoltsGame extends Minigame {
     }
 
     let mouseBox = new Box(
-      mouseX, mouseY, 50, 50
+      mouseX, mouseY, 50, 50 , 3 , 2.5
     );
 
     for (let box of this.boxes) {
     if(
+      mouseX > 0 && mouseY > 0 && 
       box.checkCollision(mouseBox)
     )
     {
@@ -79,23 +89,25 @@ class BoltsGame extends Minigame {
       if (this.currentSide == 0)
       {
         box.x = Math.random() * 1300 + 100;
-        box.y = 100;
+        box.y = 50;
       }
       if (this.currentSide == 1){
         box.x = 1100;
-        box.y = Math.random()* 550 + 100;
+        box.y = Math.random()* 550 + 150;
       }
       if (this.currentSide == 2)
       {
         box.x = Math.random() * 1300 + 100;
-        box.y = 600;
+        box.y = 650;
       }
       if(this.currentSide == 3)
       {
         box.x = 100;
-        box.y = Math.random()* 550 + 100;
+        box.y = Math.random()* 550 + 150;
         this.currentSide = -1;
       }
+      box.Vx = random (2,4)
+      box.Vy = random (2,4)
     }
     }
 
@@ -135,7 +147,8 @@ class BoltsGame extends Minigame {
 
         fill(230);
         rect(this.endBox.x, this.endBox.y, this.endBox.h, this.endBox.w);
-        rect(mouseX, mouseY, 50, 50);
+        if(mouseX > 0 && mouseY > 0)
+        {rect(mouseX, mouseY, 50, 50);}
         for (let box of this.boxes) {
           rect(box.x, box.y, box.w, box.h);
         }
