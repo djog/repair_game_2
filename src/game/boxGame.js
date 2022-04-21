@@ -1,54 +1,70 @@
 class BoxGame extends Minigame {
     currentX = 200;
     velocity = 3;
-    direction = this.velocity;
     wins = 0;
     hasFired = false;
     lastFiredAt = new Date();
     boxWidth = 60;
+    onCooldown = false;
+    cooldownTimer = 1000;
 
     onStart() {
 
     }
 
     onUpdate(dt) {
- //       console.log(new Date() - this.lastFiredAt);
-        this.currentX += this.direction;
-        if (this.currentX > 1100 - this.boxWidth) {
-            this.direction = this.velocity * -1;
+        this.currentX += this.velocity;
+        if (this.currentX > 1300 - this.boxWidth) {
+            this.velocity = this.velocity * -1;
         }
         if (this.currentX < 200) {
-            this.direction = this.velocity;
+            this.velocity = this.velocity * -1;
         }
-        if (new Date() - this.lastFiredAt > 1000) {
-            const boxLeft = 605;
-            if (this.currentX > boxLeft && this.currentX < boxLeft + this.boxWidth) {
-                if (keyIsDown(32) && this.hasFired == false) {
-                    console.log("success")
-                    this.hasFired = true;
-                    console.log("hasFired:" + this.hasFired);
-                    this.boxWidth = Math.random() * 70 + 30;
+        if (new Date() - this.lastFiredAt > this.cooldownTimer) {
+            this.onCooldown = false;
+            const boxLeft = 655 - this.boxWidth;
+            if (keyIsDown(32)) {
+                this.lastFiredAt = new Date();
+                if (this.currentX > boxLeft && this.currentX < boxLeft + this.boxWidth) {
+                    this.boxWidth = Math.random() * 150 + 50;
                     this.currentX = 200;
-                    this.velocity = Math.random() * 8 + 1;
+                    this.velocity = Math.random() * 8 + 7;
                     this.wins++;
                 }
             } else {
                 this.hasFired = false;
             }
+        } else {
+            this.onCooldown = true;
         }
-        if (keyIsDown(32)) {
-            this.lastFiredAt = new Date();
+        if (this.wins > 14) {
+            alert("win");
+            return true;
         }
     }
 
     onDraw() {
-        background(100);
-        // fill(30);
-        // rect(200, 100, 1000, 500);
-        fill(255, 0, 0);
-        rect(this.currentX, 200, this.boxWidth, 50);
-        fill(0, 0, 255);
+        background(150);
+        fill(0);
+        rect(this.currentX, 200, this.boxWidth, 20, 5);
+        if (this.onCooldown) {
+            fill(255, 0, 0);
+        } else {
+            fill(0, 0, 255);
+        }
         rect(650, 500, 10, 200, 20);
-        text(this.wins, 100, 100);
+        fill(0);
+        textSize(40);
+        text("Press [Space] to shoot", 100, 560);
+        text("Hit 15 shots to succeed", 100, 630);
+        text("Shots hit =", 100, 700);
+        text(this.wins, 300, 700);
+        rect(750, 600, 50, 100, 3);
+        fill(40, 255, 40);
+        let cooldownBar = (new Date() - this.lastFiredAt) / this.cooldownTimer * 90;
+        if (cooldownBar > 90) {
+            cooldownBar = 90;
+        }
+        rect(755, 695 - cooldownBar, 40, cooldownBar, 3);
     }
 }
