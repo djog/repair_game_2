@@ -7,7 +7,7 @@ class Minigame {
 
 const MINIGAMES = { "GAME": 0, "TEST": 1, "BOLTS": 2, "NUMBERS" : 3, "KEYGAME" : 4, "BOXGAME" : 5 }
 Object.freeze(MINIGAMES);
-const DEFAULT_MINIGAME = MINIGAMES.BOXGAME;
+const DEFAULT_MINIGAME = MINIGAMES.GAME;
 
 
 class StateManager {
