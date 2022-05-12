@@ -21,7 +21,7 @@ class World {
     }
 
     async loadLevel() {
-        const levelData = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
+        const levelData = '01200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
@@ -94,14 +94,20 @@ class World {
             for (let y = 0; y < WORLD_SIZE; y++) {
                 let drawX = x * TILE_SIZE - (WORLD_SIZE / 2) * TILE_SIZE;
                 let drawY = y * TILE_SIZE - (WORLD_SIZE / 2) * TILE_SIZE;
-                const type = this.tiles[x][y].type;
-                const darkness = this.tiles[x][y].darkness;
+                const type = this.tiles[y][x].type;
+                const darkness = this.tiles[y][x].darkness;
+                debugger;
                 let colorValue = color(0);
                 switch (type) {
-                    case 1:
-                        colorValue = color(40);
-                    case 2:
+                    case '0':
+                        colorValue = color(255,255,0);   
+                        break;                 
+                    case '1':
+                        colorValue = color(255,0,0);
+                        break;                 
+                    case '2':
                         colorValue = color(80);
+                        break;                 
                 }
                 push();
                 rectMode(CORNER);
