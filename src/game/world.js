@@ -1,4 +1,5 @@
-const WORLD_SIZE = 50;
+const WORLD_HEIGHT = 50;
+const WORLD_WIDTH = 128;
 const TILE_SIZE = 32;
 
 class Tile {
@@ -13,7 +14,7 @@ class World {
         this.isLoaded = false;
 
         this.tiles = [];
-        for (let x = 0; x < WORLD_SIZE; x++) {
+        for (let x = 0; x < WORLD_WIDTH; x++) {
             this.tiles[x] = [];
         }
 
@@ -21,7 +22,7 @@ class World {
     }
 
     async loadLevel() {
-        const levelData = '01200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
+        const levelData = '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
@@ -72,10 +73,10 @@ class World {
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001\n';
         const rows = levelData.split('\n');
-
-        for (let y = 0; y < WORLD_SIZE; y++) {
+        debugger;
+        for (let y = 0; y < WORLD_HEIGHT; y++) {
             const row = rows[y];
-            for (let x = 0; x < WORLD_SIZE; x++) {
+            for (let x = 0; x < WORLD_WIDTH; x++) {
                 const typeNumber = row.charAt(x);
                 this.tiles[x][y] = new Tile(typeNumber, random(30));
             }
@@ -90,24 +91,26 @@ class World {
             return;
         }
 
-        for (let x = 0; x < WORLD_SIZE; x++) {
-            for (let y = 0; y < WORLD_SIZE; y++) {
-                let drawX = x * TILE_SIZE - (WORLD_SIZE / 2) * TILE_SIZE;
-                let drawY = y * TILE_SIZE - (WORLD_SIZE / 2) * TILE_SIZE;
-                const type = this.tiles[y][x].type;
-                const darkness = this.tiles[y][x].darkness;
-                debugger;
+        for (let x = 0; x < WORLD_WIDTH; x++) {
+            for (let y = 0; y < WORLD_HEIGHT; y++) {
+                let drawX = x * TILE_SIZE - (WORLD_WIDTH / 2) * TILE_SIZE;
+                let drawY = y * TILE_SIZE - (WORLD_HEIGHT / 2) * TILE_SIZE;
+                const type = this.tiles[x][y].type;
+                const darkness = this.tiles[x][y].darkness;
                 let colorValue = color(0);
                 switch (type) {
                     case '0':
-                        colorValue = color(255,255,0);   
-                        break;                 
+                        colorValue = color(0,0,200);
+                            break;
                     case '1':
-                        colorValue = color(255,0,0);
-                        break;                 
+                        colorValue = color(40);
+                        break;
                     case '2':
                         colorValue = color(80);
-                        break;                 
+                        break;
+                    case '3':
+                        colorValue = color(200, 200, 50);
+                        break;
                 }
                 push();
                 rectMode(CORNER);
