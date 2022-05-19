@@ -11,6 +11,9 @@ class Game extends Minigame {
         this.player.update();
 
         this.cameraPos = p5.Vector.lerp(this.cameraPos, this.player.pos, dt * 2.0);
+console.log(this.player.pos.x + "," +this.player.pos.y + "..." +this.cameraPos.x + "," + this.cameraPos.y);
+
+        this.world.updateCameraPosition(this.cameraPos);
 
         if (keyIsDown(32)) {
             return MINIGAMES.BOLTS;
