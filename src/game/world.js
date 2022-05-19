@@ -12,6 +12,7 @@ class Tile {
 class World {
     constructor() {
         this.isLoaded = false;
+        this.cameraPosition = createVector(0, 0);
 
         this.tiles = [];
         for (let x = 0; x < WORLD_WIDTH; x++) {
@@ -19,6 +20,10 @@ class World {
         }
 
         this.loadLevel();
+    }
+
+    updateCameraPosition(position){
+        this.cameraPosition = position;
     }
 
     async loadLevel() {
@@ -73,7 +78,6 @@ class World {
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n'+
         '00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001\n';
         const rows = levelData.split('\n');
-        debugger;
         for (let y = 0; y < WORLD_HEIGHT; y++) {
             const row = rows[y];
             for (let x = 0; x < WORLD_WIDTH; x++) {
@@ -85,14 +89,24 @@ class World {
         this.isLoaded = true;
     }
 
+    clamp(value, minimumValue, maximumValue){
+        return Math.min(Math.max(value, minimumValue), maximumValue);
+    }
+
     draw() {
         if (!this.isLoaded) {
             background(0);
             return;
         }
-
-        for (let x = 0; x < WORLD_WIDTH; x++) {
-            for (let y = 0; y < WORLD_HEIGHT; y++) {
+        let bla = createVector(this.cameraPosition.x + (WORLD_WIDTH / 2) * TILE_SIZE, this.cameraPosition.y + (WORLD_HEIGHT / 2) * TILE_SIZE, )
+        let tileIndexCameraX = Math.floor(bla.x / TILE_SIZE);
+        let tileIndexCameraY = Math.floor(bla.y / TILE_SIZE);
+        let tileXStartIndex = this.clamp(tileIndexCameraX - 20, 0, WORLD_WIDTH -1);
+        let tileXEndIndex = this.clamp(tileIndexCameraX + 20, 0, WORLD_WIDTH -1);
+        let tileYStartIndex = this.clamp(tileIndexCameraY - 20, 0, WORLD_HEIGHT - 1);
+        let tileYEndIndex = this.clamp(tileIndexCameraY + 20, 0, WORLD_HEIGHT -1);
+        for (let x = tileXStartIndex; x < tileXEndIndex; x++) {
+            for (let y = tileYStartIndex; y < tileYEndIndex; y++) {
                 let drawX = x * TILE_SIZE - (WORLD_WIDTH / 2) * TILE_SIZE;
                 let drawY = y * TILE_SIZE - (WORLD_HEIGHT / 2) * TILE_SIZE;
                 const type = this.tiles[x][y].type;
