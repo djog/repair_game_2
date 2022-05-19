@@ -98,13 +98,19 @@ class World {
             background(0);
             return;
         }
-        let bla = createVector(this.cameraPosition.x + (WORLD_WIDTH / 2) * TILE_SIZE, this.cameraPosition.y + (WORLD_HEIGHT / 2) * TILE_SIZE, )
-        let tileIndexCameraX = Math.floor(bla.x / TILE_SIZE);
-        let tileIndexCameraY = Math.floor(bla.y / TILE_SIZE);
-        let tileXStartIndex = this.clamp(tileIndexCameraX - 20, 0, WORLD_WIDTH -1);
-        let tileXEndIndex = this.clamp(tileIndexCameraX + 20, 0, WORLD_WIDTH -1);
-        let tileYStartIndex = this.clamp(tileIndexCameraY - 20, 0, WORLD_HEIGHT - 1);
-        let tileYEndIndex = this.clamp(tileIndexCameraY + 20, 0, WORLD_HEIGHT -1);
+        let relativeCameraPosition = createVector(this.cameraPosition.x + (WORLD_WIDTH / 2) * TILE_SIZE, this.cameraPosition.y + (WORLD_HEIGHT / 2) * TILE_SIZE);
+
+        let horizontalTilesBorder = Math.floor((width / TILE_SIZE) / 2);
+        let verticalTilesBorder = Math.floor((height / TILE_SIZE) / 2);
+
+        debugger;
+
+        let tileIndexCameraX = Math.floor(relativeCameraPosition.x / TILE_SIZE);
+        let tileIndexCameraY = Math.floor(relativeCameraPosition.y / TILE_SIZE);
+        let tileXStartIndex = this.clamp(tileIndexCameraX - horizontalTilesBorder, 0, WORLD_WIDTH -1);
+        let tileXEndIndex = this.clamp(tileIndexCameraX + horizontalTilesBorder, 0, WORLD_WIDTH -1);
+        let tileYStartIndex = this.clamp(tileIndexCameraY - verticalTilesBorder, 0, WORLD_HEIGHT - 1);
+        let tileYEndIndex = this.clamp(tileIndexCameraY + verticalTilesBorder, 0, WORLD_HEIGHT -1);
         for (let x = tileXStartIndex; x < tileXEndIndex; x++) {
             for (let y = tileYStartIndex; y < tileYEndIndex; y++) {
                 let drawX = x * TILE_SIZE - (WORLD_WIDTH / 2) * TILE_SIZE;
