@@ -1,0 +1,23 @@
+{
+  "name": "repair_game_2",
+  "version": "1.0.0",
+  "description": "Create a 'repair game' with smaller minigames in P5.js with ~~TypeScript~~ JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p80",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djog/repair_game_2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djog/repair_game_2/issues"
+  },
+  "homepage": "https://github.com/djog/repair_game_2#readme",
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}
