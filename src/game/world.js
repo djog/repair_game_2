@@ -100,8 +100,8 @@ class World {
         }
         let relativeCameraPosition = createVector(this.cameraPosition.x + (WORLD_WIDTH / 2) * TILE_SIZE, this.cameraPosition.y + (WORLD_HEIGHT / 2) * TILE_SIZE);
 
-        let horizontalTilesBorder = Math.floor((width / TILE_SIZE) / 2);
-        let verticalTilesBorder = Math.floor((height / TILE_SIZE) / 2);
+        let horizontalTilesBorder = Math.floor((width / TILE_SIZE) / 1.5);
+        let verticalTilesBorder = Math.floor((height / TILE_SIZE) / 1.5);
 
         debugger;
 
