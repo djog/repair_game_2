@@ -11,12 +11,20 @@ class Game extends Minigame {
         this.player.update();
 
         this.cameraPos = p5.Vector.lerp(this.cameraPos, this.player.pos, dt * 2.0);
-console.log(this.player.pos.x + "," +this.player.pos.y + "..." +this.cameraPos.x + "," + this.cameraPos.y);
 
         this.world.updateCameraPosition(this.cameraPos);
 
         if (keyIsDown(32)) {
-            return MINIGAMES.BOLTS;
+            const tile = this.world.getTileAtPosition(this.player.pos);
+            // debugger;
+            if (tile){
+                switch (tile.type) {
+                    case 'A':
+                        return MINIGAMES.BOXGAME;
+                    case 'B':
+                        return MINIGAMES.NUMBERS;                        
+                }                
+            }
         }
     }
 

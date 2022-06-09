@@ -70,7 +70,6 @@ class BoltsGame extends Minigame {
   }
 
   onUpdate(dt) {
-
     for (let box of this.boxes) {
       box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2 ) );
     }

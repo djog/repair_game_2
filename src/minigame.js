@@ -46,8 +46,10 @@ class StateManager {
     updateFrame() {
         // Update
         let newState = this.currentMinigame.onUpdate(deltaTime / 1000);
-        if (newState != null) {
+        if (newState != null) {        
             this.switchState(newState);
+            debugger;
+
         }
         
         // Draw

@@ -12,7 +12,7 @@ class BoxGame extends Minigame {
 
     }
 
-    onUpdate(dt) {
+    onUpdate(dt) {      
         this.currentX += this.velocity;
         if (this.currentX > 1300 - this.boxWidth) {
             this.velocity = this.velocity * -1;

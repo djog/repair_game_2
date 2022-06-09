@@ -13,6 +13,7 @@ class World {
     constructor() {
         this.isLoaded = false;
         this.cameraPosition = createVector(0, 0);
+        this.completedLevelTiles = [];
 
         this.tiles = [];
         for (let x = 0; x < WORLD_WIDTH; x++) {
@@ -21,6 +22,22 @@ class World {
 
         this.loadLevel();
     }
+
+    getTileAtPosition(position) {
+        const relativeX = position.x + (WORLD_WIDTH * TILE_SIZE / 2)
+        const relativeY = position.y + (WORLD_HEIGHT * TILE_SIZE / 2)
+        const tileIndexX = Math.floor(relativeX / 32);
+        const tileIndexY = Math.floor(relativeY / 32);
+        return this.tiles[tileIndexX][tileIndexY];
+    }
+
+    setLevelCompleted(playerPosition){
+        const tile = this.getTileAtPosition(playerPosition);
+        if (tile){
+            this.completedLevelTiles.push(tile);
+        }
+    }
+
 
     updateCameraPosition(position){
         this.cameraPosition = position;
@@ -55,8 +72,6 @@ class World {
         let horizontalTilesBorder = Math.floor((width / TILE_SIZE) / 1.5);
         let verticalTilesBorder = Math.floor((height / TILE_SIZE) / 1.5);
 
-        debugger;
-
         let tileIndexCameraX = Math.floor(relativeCameraPosition.x / TILE_SIZE);
         let tileIndexCameraY = Math.floor(relativeCameraPosition.y / TILE_SIZE);
         let tileXStartIndex = this.clamp(tileIndexCameraX - horizontalTilesBorder, 0, WORLD_WIDTH -1);
@@ -67,13 +82,14 @@ class World {
             for (let y = tileYStartIndex; y < tileYEndIndex; y++) {
                 let drawX = x * TILE_SIZE - (WORLD_WIDTH / 2) * TILE_SIZE;
                 let drawY = y * TILE_SIZE - (WORLD_HEIGHT / 2) * TILE_SIZE;
-                const type = this.tiles[x][y].type;
+                const tile = this.tiles[x][y];
+                const type = tile.type;
                 const darkness = this.tiles[x][y].darkness;
                 let colorValue = color(0);
                 switch (type) {
                     case '0':
                         colorValue = color(0,0,200);
-                            break;
+                        break;
                     case '1':
                         colorValue = color(40);
                         break;
@@ -83,6 +99,15 @@ class World {
                     case '3':
                         colorValue = color(200, 200, 50);
                         break;
+                    case 'A' : 
+                    case 'B' : 
+                        if (this.completedLevelTiles.includes(tile)){
+                            colorValue = color(0, 255, 0);
+                        } else{
+                            colorValue = color(255, 0, 0);
+                        }
+                        break;
+                        
                 }
                 push();
                 rectMode(CORNER);
