@@ -2,7 +2,7 @@ class PressButton extends Minigame {
 
   win = false;
 
-  onStart(){
+  onStart(stateManager){
 
     this.elements = [];
     this.elements.push(new GameElement(390, 50, 50, 50));

@@ -1,4 +1,5 @@
 class KeyGame extends Minigame {
+    game = MINIGAMES.KEYGAME;
     seconds = 5;
     currentIndex = 0;
     successCount = 0;
@@ -81,7 +82,7 @@ class KeyGame extends Minigame {
     }
 
 
-    onStart() {
+    onStart(stateManager) {
       
     }
   
@@ -97,7 +98,7 @@ class KeyGame extends Minigame {
 
             if (this.successCount > 9 ){
                 alert("win");
-                return true;
+                return new GameState(true, MINIGAMES.GAME);
                 
             }
 

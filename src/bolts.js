@@ -41,6 +41,7 @@ class BoltsGame extends Minigame {
   lost = false;
   win = false;
   end = false;
+  game = MINIGAMES.BOLTS;
   boxes = [];
   endBox = new Box
     (
@@ -48,7 +49,7 @@ class BoltsGame extends Minigame {
     );
   currentSide = 0 ;
 
-  onStart() {
+  onStart(stateManager) {
 
     this.boxes.push(new Box(100, 100, 50, 50, 3, 2.5));
     this.boxes.push(new Box(1359, 649, 50, 50, 3, 2.5));
@@ -70,6 +71,10 @@ class BoltsGame extends Minigame {
   }
 
   onUpdate(dt) {
+
+    if(this.win == true) { 
+      return new GameState(true, MINIGAMES.GAME);
+    }
     for (let box of this.boxes) {
       box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2 ) );
     }

@@ -7,6 +7,7 @@ var seconds = 0;
 var stoptime = true
 
 class NumbersMiniGame extends Minigame {
+    game = MINIGAMES.NUMBERS;
 
     constructor() {
         super();
@@ -77,7 +78,7 @@ class NumbersMiniGame extends Minigame {
         
     }
 
-    onStart() {
+    onStart(stateManager) {
         console.log("Setup test!");
         let numbers = [1, 2, 3, 4, 5, 6, 7 ,8, 9, 10];
         this.numbershuffle  = shuffle (numbers);
@@ -108,7 +109,7 @@ class NumbersMiniGame extends Minigame {
                                 if (this.lastPressedNumber == 10)
                                 {
                                     alert("win");
-                                    return true;
+                                    return new GameState(true, MINIGAMES.GAME);
                                 }
                             }
 

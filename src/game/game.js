@@ -1,6 +1,7 @@
 class Game extends Minigame {
-    onStart() {
-        this.world = new World();
+    game = MINIGAMES.GAME;
+    onStart(stateManager) {
+        this.world = new World(stateManager);
         this.cameraPos = createVector(0, 0);
         this.player = new Player();
     }
@@ -20,9 +21,12 @@ class Game extends Minigame {
             if (tile){
                 switch (tile.type) {
                     case 'A':
-                        return MINIGAMES.BOXGAME;
+                        return new GameState(false, MINIGAMES.BOXGAME);
                     case 'B':
-                        return MINIGAMES.NUMBERS;                        
+                        return new GameState(false, MINIGAMES.NUMBERS);
+                    case 'C':
+                        return new GameState(false, MINIGAMES.BOLTS);                        
+    
                 }                
             }
         }

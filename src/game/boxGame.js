@@ -1,4 +1,5 @@
 class BoxGame extends Minigame {
+    game = MINIGAMES.BOXGAME;
     currentX = 200;
     velocity = 3;
     wins = 0;
@@ -8,7 +9,7 @@ class BoxGame extends Minigame {
     onCooldown = false;
     cooldownTimer = 1000;
 
-    onStart() {
+    onStart(stateManager) {
 
     }
 
@@ -37,9 +38,9 @@ class BoxGame extends Minigame {
         } else {
             this.onCooldown = true;
         }
-        if (this.wins > 14) {
+        if (this.wins > 1) {
             alert("win");
-            return true;
+            return new GameState(true, MINIGAMES.GAME);
         }
     }
 

@@ -1,5 +1,6 @@
 class Test extends Minigame {
-    onStart() {
+    game = MINIGAMES.TEST;
+    onStart(stateManager) {
         this.world = new World();
         this.cameraPos = createVector(0, 0);
         this.player = new Player();

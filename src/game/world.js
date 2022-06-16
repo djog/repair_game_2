@@ -1,3 +1,5 @@
+
+
 const WORLD_HEIGHT = 50;
 const WORLD_WIDTH = 128;
 const TILE_SIZE = 32;
@@ -10,10 +12,10 @@ class Tile {
 }
 
 class World {
-    constructor() {
+    constructor(stateManager) {
         this.isLoaded = false;
         this.cameraPosition = createVector(0, 0);
-        this.completedLevelTiles = [];
+        this.stateManager = stateManager;
 
         this.tiles = [];
         for (let x = 0; x < WORLD_WIDTH; x++) {
@@ -30,14 +32,6 @@ class World {
         const tileIndexY = Math.floor(relativeY / 32);
         return this.tiles[tileIndexX][tileIndexY];
     }
-
-    setLevelCompleted(playerPosition){
-        const tile = this.getTileAtPosition(playerPosition);
-        if (tile){
-            this.completedLevelTiles.push(tile);
-        }
-    }
-
 
     updateCameraPosition(position){
         this.cameraPosition = position;
@@ -101,7 +95,24 @@ class World {
                         break;
                     case 'A' : 
                     case 'B' : 
-                        if (this.completedLevelTiles.includes(tile)){
+                    case 'C' :
+
+                        let game = -1;
+                        switch (type)
+                        {
+                            case "A" : 
+                                game = MINIGAMES.BOXGAME;
+                                break;
+                            case "B" : 
+                                game = MINIGAMES.NUMBERS;
+                                break;
+                            case "C" : 
+                                game = MINIGAMES.BOLTS;
+                                break;
+                        }
+                        let hasWon = this.stateManager.wonGames.includes(game);
+                        debugger;
+                        if (hasWon){
                             colorValue = color(0, 255, 0);
                         } else{
                             colorValue = color(255, 0, 0);

@@ -1,5 +1,6 @@
 class Minigame {
-    onStart() { };
+    game = -1;
+    onStart(stateManager) { };
     onUpdate(dt) { };
     onDraw() { };
     onStop() { };
@@ -7,18 +8,30 @@ class Minigame {
 
 const MINIGAMES = { "GAME": 0, "TEST": 1, "BOLTS": 2, "NUMBERS" : 3, "KEYGAME" : 4, "BOXGAME" : 5 }
 Object.freeze(MINIGAMES);
-const DEFAULT_MINIGAME = MINIGAMES.GAME;
 
+class GameState{
+
+    constructor(wonGame, game)
+    {
+        this.wonGame = wonGame;
+        this.game = game;
+    }
+}
 
 class StateManager {
     constructor() {
-        this.gameState = DEFAULT_MINIGAME;
-        this.currentMinigame = this.buildMinigame(this.gameState);
-        this.currentMinigame.onStart();
+        this.wonGames = [];
+        this.currentMinigame = this.buildMinigame(new GameState(false, MINIGAMES.GAME));
+        this.currentMinigame.onStart(this);
     }
 
     buildMinigame(state) {
-        switch (state) {
+        if (state.wonGame){
+            this.wonGames.push(this.currentMinigame.game);
+            debugger;
+
+        }
+        switch (state.game) {
             case MINIGAMES.GAME:
                 return new Game();
             case MINIGAMES.TEST:
@@ -40,7 +53,7 @@ class StateManager {
     switchState(state) {
         this.currentMinigame.onStop();
         this.currentMinigame = this.buildMinigame(state);
-        this.currentMinigame.onStart();
+        this.currentMinigame.onStart(this);
     }
 
     updateFrame() {
