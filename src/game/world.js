@@ -100,7 +100,6 @@ class World {
 
                         let game = Helpers.mapTileValueToGame(type);
                         let hasWon = this.stateManager.wonGames.includes(game);
-                        debugger;
                         if (hasWon){
                             colorValue = color(0, 255, 0);
                         } else{

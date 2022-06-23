@@ -28,8 +28,6 @@ class StateManager {
     buildMinigame(state) {
         if (state.wonGame){
             this.wonGames.push(this.currentMinigame.game);
-            debugger;
-
         }
         switch (state.game) {
             case MINIGAMES.GAME:
@@ -61,8 +59,6 @@ class StateManager {
         let newState = this.currentMinigame.onUpdate(deltaTime / 1000);
         if (newState != null) {        
             this.switchState(newState);
-            debugger;
-
         }
         
         // Draw

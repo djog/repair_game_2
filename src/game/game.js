@@ -8,16 +8,28 @@ class Game extends Minigame {
 
     onUpdate(dt) {
         this.framerate = 1 / (deltaTime / 1000);
-
+        
+        const oldPlayerPosition = this.player.pos.copy();
         this.player.update();
 
         this.cameraPos = p5.Vector.lerp(this.cameraPos, this.player.pos, dt * 2.0);
 
         this.world.updateCameraPosition(this.cameraPos);
+        const tile = this.world.getTileAtPosition(this.player.pos);
 
+        if(tile)
+        {
+            switch (tile.type)
+            {
+                case '0':
+                case '2':
+                case '3':
+                    this.player.pos = oldPlayerPosition;                    
+                    break;
+            }
+        }
+        
         if (keyIsDown(32)) {
-            const tile = this.world.getTileAtPosition(this.player.pos);
-
             return new GameState(false, Helpers.mapTileValueToGame(tile.type));
        }
     }
