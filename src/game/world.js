@@ -97,19 +97,7 @@ class World {
                     case 'B' : 
                     case 'C' :
 
-                        let game = -1;
-                        switch (type)
-                        {
-                            case "A" : 
-                                game = MINIGAMES.BOXGAME;
-                                break;
-                            case "B" : 
-                                game = MINIGAMES.NUMBERS;
-                                break;
-                            case "C" : 
-                                game = MINIGAMES.BOLTS;
-                                break;
-                        }
+                        let game = Helpers.mapTileValueToGame(type);
                         let hasWon = this.stateManager.wonGames.includes(game);
                         debugger;
                         if (hasWon){

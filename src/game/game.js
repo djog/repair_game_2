@@ -17,19 +17,9 @@ class Game extends Minigame {
 
         if (keyIsDown(32)) {
             const tile = this.world.getTileAtPosition(this.player.pos);
-            // debugger;
-            if (tile){
-                switch (tile.type) {
-                    case 'A':
-                        return new GameState(false, MINIGAMES.BOXGAME);
-                    case 'B':
-                        return new GameState(false, MINIGAMES.NUMBERS);
-                    case 'C':
-                        return new GameState(false, MINIGAMES.BOLTS);                        
-    
-                }                
-            }
-        }
+
+            return new GameState(false, Helpers.mapTileValueToGame(tile.type));
+       }
     }
 
     onDraw() {
