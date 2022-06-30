@@ -17,6 +17,6 @@ class Helpers
             case "D" :
                 return MINIGAMES.KEYGAME;
         }
-        throw 'unknown tile value';
+        return null;
     }
 }

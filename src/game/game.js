@@ -30,7 +30,10 @@ class Game extends Minigame {
         }
         
         if (keyIsDown(32)) {
-            return new GameState(false, Helpers.mapTileValueToGame(tile.type));
+            const state = new GameState(false, Helpers.mapTileValueToGame(tile.type));
+            if (state){
+                return new GameState(false, Helpers.mapTileValueToGame(tile.type));
+            }
        }
     }
 

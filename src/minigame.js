@@ -6,7 +6,7 @@ class Minigame {
     onStop() { };
 }
 
-const MINIGAMES = { "GAME": 0, "TEST": 1, "BOLTS": 2, "NUMBERS" : 3, "KEYGAME" : 4, "BOXGAME" : 5 }
+const MINIGAMES = { "GAME": 0, "BOLTS": 1, "NUMBERS" : 2, "KEYGAME" : 3, "BOXGAME" : 4 }
 Object.freeze(MINIGAMES);
 
 class GameState{
@@ -23,11 +23,25 @@ class StateManager {
         this.wonGames = [];
         this.currentMinigame = this.buildMinigame(new GameState(false, MINIGAMES.GAME));
         this.currentMinigame.onStart(this);
+        this.victory = false;
     }
 
     buildMinigame(state) {
         if (state.wonGame){
             this.wonGames.push(this.currentMinigame.game);
+            const allGames = Object.values(MINIGAMES).slice(1);
+            for (game of allGames) {
+                if (!this.wonGames.includes(game))
+                {
+                    
+                }
+            }
+
+
+            if (this.wonGames.length == totalNumberOfGames) {
+                this.victory = true;      
+            }
+            debugger;
         }
         switch (state.game) {
             case MINIGAMES.GAME:
@@ -45,25 +59,61 @@ class StateManager {
             case MINIGAMES.BOXGAME:
                 return new BoxGame();
         }
-        throw 'Unknown state!';
+        return null;
     }
 
     switchState(state) {
-        this.currentMinigame.onStop();
-        this.currentMinigame = this.buildMinigame(state);
-        this.currentMinigame.onStart(this);
+        const newState = this.buildMinigame(state);
+
+        if (newState)
+        {
+            this.currentMinigame.onStop();
+            this.currentMinigame = newState;
+            this.currentMinigame.onStart(this);
+        }
     }
 
+    
     updateFrame() {
-        // Update
-        let newState = this.currentMinigame.onUpdate(deltaTime / 1000);
-        if (newState != null) {        
-            this.switchState(newState);
+
+        if (this.victory)
+        {
+            // Draw
+            push();
+
+            background(200);
+            fill(0);
+            rect(width / 2 - 500, height / 3 + 200, 1000, 200);
+            fill(200);
+            rect(width / 2 - 490, height / 3 + 210, 980, 180);
+            fill(0);
+            textSize(60);
+            text("Congratulations!", width / 2 - 250, height / 3);
+            text("You have completed all levels!", width / 2 - 420, height / 3 + 100);
+            text("Click here to return to the ship", width / 2 - 420, height / 3 + 320);
+            if (mouseX < width / 2 + 500 && 
+                mouseX > width / 2 - 500 && 
+                mouseY < height / 3 + 400 && 
+                mouseY > height / 3 + 200) {
+                rect(width - 490, height / 3 + 210, 980, 180)
+                if (mouseIsPressed) {
+                    this.victory = false;
+                }
+            }
+    
+            pop();
+
+        } else{
+            // Update
+            let newState = this.currentMinigame.onUpdate(deltaTime / 1000);
+            if (newState != null) {        
+                this.switchState(newState);
+            } 
+            
+            // Draw
+            push();
+            this.currentMinigame.onDraw();
+            pop();
         }
-        
-        // Draw
-        push();
-        this.currentMinigame.onDraw();
-        pop();
     }
 }

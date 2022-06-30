@@ -99,11 +99,13 @@ class World {
                     case 'D' : 
 
                         let game = Helpers.mapTileValueToGame(type);
-                        let hasWon = this.stateManager.wonGames.includes(game);
-                        if (hasWon){
-                            colorValue = color(0, 255, 0);
-                        } else{
-                            colorValue = color(255, 0, 0);
+                        if (game){
+                            let hasWon = this.stateManager.wonGames.includes(game);
+                            if (hasWon){
+                                colorValue = color(0, 255, 0);
+                            } else{
+                                colorValue = color(255, 0, 0);
+                            }
                         }
                         break;
                         
