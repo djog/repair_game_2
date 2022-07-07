@@ -75,6 +75,9 @@ class BoltsGame extends Minigame {
     if(this.win == true) { 
       return new GameState(true, MINIGAMES.GAME);
     }
+    if (this.endGame){
+      return new GameState(false, MINIGAMES.GAME);
+    }
     for (let box of this.boxes) {
       box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2 ) );
     }
@@ -166,6 +169,9 @@ class BoltsGame extends Minigame {
         fill(textColor);
         textAlign(CENTER);
         text("You Lost!!!", 0, 200, width);
+
+        let bolts = this;
+        setTimeout(()=>bolts.endGame = true, 5000);
         console.log("lost")
       }
     }
