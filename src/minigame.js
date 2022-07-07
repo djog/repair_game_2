@@ -30,18 +30,16 @@ class StateManager {
         if (state.wonGame){
             this.wonGames.push(this.currentMinigame.game);
             const allGames = Object.values(MINIGAMES).slice(1);
-            for (game of allGames) {
+            let hasWon = true;
+            debugger;
+            for (let game of allGames) {
                 if (!this.wonGames.includes(game))
                 {
-                    
+                    hasWon = false;
+                    break;
                 }
             }
-
-
-            if (this.wonGames.length == totalNumberOfGames) {
-                this.victory = true;      
-            }
-            debugger;
+            this.victory = hasWon;      
         }
         switch (state.game) {
             case MINIGAMES.GAME:

@@ -27,14 +27,14 @@ class Game extends Minigame {
                     this.player.pos = oldPlayerPosition;                    
                     break;
             }
+            if (keyIsDown(32)) {
+                const state = new GameState(false, Helpers.mapTileValueToGame(tile.type));
+                if (state){
+                    return new GameState(false, Helpers.mapTileValueToGame(tile.type));
+                }
+            }
         }
         
-        if (keyIsDown(32)) {
-            const state = new GameState(false, Helpers.mapTileValueToGame(tile.type));
-            if (state){
-                return new GameState(false, Helpers.mapTileValueToGame(tile.type));
-            }
-       }
     }
 
     onDraw() {
