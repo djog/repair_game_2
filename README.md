@@ -6,4 +6,8 @@ Create a 'repair game' with smaller minigames in P5.js with ~~TypeScript~~ JavaS
 
 ## Installation 
 
-No installation is required, you can open `index.html` in your browser.
+- Install NodeJS/NPM
+- First time run: npm install
+- To start: npm start
+
+It shows the IP and port, but you can connect to http://localhost as well
