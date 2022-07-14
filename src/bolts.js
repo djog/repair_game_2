@@ -40,7 +40,7 @@ class Box {
 class BoltsGame extends Minigame {
   lost = false;
   endGame = false;
-  win = false;
+  win = ;
   game = MINIGAMES.BOLTS;
   boxes = [];
   endBox = new Box
@@ -57,13 +57,11 @@ class BoltsGame extends Minigame {
 
     let bolts = this;
     setTimeout(() => {
-      debugger;
       if (bolts.lost == false) {
         bolts.win = true;
         console.log("win")
         setTimeout(() => {
           bolts.endGame = true;
-          debugger;
         }, 3000);
       }
     }, 10000)
