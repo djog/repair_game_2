@@ -5,7 +5,7 @@ class Box {
   y;
   h;
   w;
-  constructor(x, y, h, w,Vx ,Vy) {
+  constructor(x, y, h, w, Vx, Vy) {
     this.x = x;
     this.y = y;
     this.h = h;
@@ -31,102 +31,96 @@ class Box {
     let distance = dist(this.x, this.y, box.x, box.y);
     return (
       (this.x > box.x && this.x < box.x + box.w && this.y > box.y && this.y < box.y + box.h)
-      ||(this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y > box.y && this.y < box.y + box.h)
-      ||(this.x > box.x && this.x < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
-      ||(this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
+      || (this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y > box.y && this.y < box.y + box.h)
+      || (this.x > box.x && this.x < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
+      || (this.x + this.w > box.x && this.x + this.w < box.x + box.w && this.y + this.h > box.y && this.y + this.h < box.y + box.h)
     );
   }
 }
 class BoltsGame extends Minigame {
   lost = false;
+  endGame = false;
   win = false;
-  end = false;
   game = MINIGAMES.BOLTS;
   boxes = [];
   endBox = new Box
     (
-      560, 275, 200, 200 ,0 ,0
+      560, 275, 200, 200, 0, 0
     );
-  currentSide = 0 ;
+  currentSide = 0;
 
   onStart(stateManager) {
 
     this.boxes.push(new Box(100, 100, 50, 50, 3, 2.5));
     this.boxes.push(new Box(1359, 649, 50, 50, 3, 2.5));
-    this.boxes.push(new Box(30, 660, 50, 50, 3,2.5));
-  //  for (let i = 0; i < 100; i++){
-    //  this.boxes.push(new Box(30, 660, 10, 10, 0.9 , 0.9 ));
-      // this.boxes.push(new Box(0, 0, 10, 10, 0.9 , 0.9 ));
-      // this.boxes.push(new Box(1359, 649, 10, 10, 0.9 , 0.9 ));
-  //  }
+    this.boxes.push(new Box(30, 660, 50, 50, 3, 2.5));
 
+    let bolts = this;
     setTimeout(() => {
-      if (this.end == false) {
-        if (this.lost == false) {
-          this.win = true;
-          console.log("win")
-        }
+      debugger;
+      if (bolts.lost == false) {
+        bolts.win = true;
+        console.log("win")
+        setTimeout(() => {
+          bolts.endGame = true;
+          debugger;
+        }, 3000);
       }
     }, 10000)
   }
 
   onUpdate(dt) {
 
-    if(this.win == true) { 
-      return new GameState(true, MINIGAMES.GAME);
+    if (this.endGame) {
+      return new GameState(this.win, MINIGAMES.GAME);
     }
-    if (this.endGame){
-      return new GameState(false, MINIGAMES.GAME);
-    }
-    for (let box of this.boxes) {
-      box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2 ) );
-    }
+    else if (!this.win) {
+      for (let box of this.boxes) {
+        box.moveTo(this.endBox.x + (this.endBox.w / 2), this.endBox.y + (this.endBox.h / 2));
+      }
 
-    let mouseBox = new Box(
-      mouseX, mouseY, 50, 50 , 3 , 2.5
-    );
+      let mouseBox = new Box(
+        mouseX, mouseY, 50, 50, 3, 2.5
+      );
 
-    for (let box of this.boxes) {
-    if(
-      mouseX > 0 && mouseY > 0 && 
-      box.checkCollision(mouseBox)
-    )
-    {
-      this.currentSide ++;
-      if (this.currentSide == 0)
-      {
-        box.x = Math.random() * 1300 + 100;
-        box.y = 50;
+      for (let box of this.boxes) {
+        if (
+          mouseX > 0 && mouseY > 0 &&
+          box.checkCollision(mouseBox)
+        ) {
+          this.currentSide++;
+          if (this.currentSide == 0) {
+            box.x = Math.random() * 1300 + 100;
+            box.y = 50;
+          }
+          if (this.currentSide == 1) {
+            box.x = 1100;
+            box.y = Math.random() * 550 + 150;
+          }
+          if (this.currentSide == 2) {
+            box.x = Math.random() * 1300 + 100;
+            box.y = 650;
+          }
+          if (this.currentSide == 3) {
+            box.x = 100;
+            box.y = Math.random() * 550 + 150;
+            this.currentSide = -1;
+          }
+          box.Vx = random(2, 4)
+          box.Vy = random(2, 4)
+        }
       }
-      if (this.currentSide == 1){
-        box.x = 1100;
-        box.y = Math.random()* 550 + 150;
-      }
-      if (this.currentSide == 2)
-      {
-        box.x = Math.random() * 1300 + 100;
-        box.y = 650;
-      }
-      if(this.currentSide == 3)
-      {
-        box.x = 100;
-        box.y = Math.random()* 550 + 150;
-        this.currentSide = -1;
-      }
-      box.Vx = random (2,4)
-      box.Vy = random (2,4)
-    }
-    }
 
 
-    for (let box of this.boxes) {
-      console.log (dist(box.x,box.y,this.endBox.x,this.endBox.y));
-      if(
-      box.checkCollision(this.endBox)
-      )
-      {
-        this.lost = true;
+      for (let box of this.boxes) {
+        console.log(dist(box.x, box.y, this.endBox.x, this.endBox.y));
+        if (
+          box.checkCollision(this.endBox)
+        ) {
+          this.lost = true;
+        }
       }
+
     }
 
   }
@@ -144,7 +138,7 @@ class BoltsGame extends Minigame {
     }
 
     // cubes
-    if (this.end == false) {
+    if (!this.endGame) {
       if (this.lost == false && this.win == false) {
         textSize(100);
         let textColor = color(0, 0, 0);
@@ -154,8 +148,7 @@ class BoltsGame extends Minigame {
 
         fill(230);
         rect(this.endBox.x, this.endBox.y, this.endBox.h, this.endBox.w);
-        if(mouseX > 0 && mouseY > 0)
-        {rect(mouseX, mouseY, 50, 50);}
+        if (mouseX > 0 && mouseY > 0) { rect(mouseX, mouseY, 50, 50); }
         for (let box of this.boxes) {
           rect(box.x, box.y, box.w, box.h);
         }
@@ -171,7 +164,7 @@ class BoltsGame extends Minigame {
         text("You Lost!!!", 0, 200, width);
 
         let bolts = this;
-        setTimeout(()=>bolts.endGame = true, 5000);
+        setTimeout(() => bolts.endGame = true, 5000);
         console.log("lost")
       }
     }
