@@ -40,7 +40,7 @@ class Box {
 class BoltsGame extends Minigame {
   lost = false;
   endGame = false;
-  win = true;
+  win = false;
   game = MINIGAMES.BOLTS;
   boxes = [];
   endBox = new Box
