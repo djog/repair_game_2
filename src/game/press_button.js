@@ -22,9 +22,6 @@ class PressButton extends Minigame {
       if (game.win === false)
       {
         game.win = game.elements[0].win && game.elements[1].win && game.elements[2].win && game.elements[3].win;
-        if (game.win){
-          alert("winning!") 
-        }
       }
       });
     print(mouseIsPressed);

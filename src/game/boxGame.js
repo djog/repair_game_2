@@ -39,7 +39,6 @@ class BoxGame extends Minigame {
             this.onCooldown = true;
         }
         if (this.wins > 1) {
-            alert("win");
             return new GameState(true, MINIGAMES.GAME);
         }
     }

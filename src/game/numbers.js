@@ -108,7 +108,6 @@ class NumbersMiniGame extends Minigame {
                                 this.lastPressedNumber ++;
                                 if (this.lastPressedNumber == 10)
                                 {
-                                    alert("win");
                                     return new GameState(true, MINIGAMES.GAME);
                                 }
                             }
