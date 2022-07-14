@@ -18,11 +18,12 @@ class GameState {
 }
 
 class StateManager {
+    victory = false;
+    victoryScreenShown = false;
     constructor() {
         this.wonGames = [];
         this.currentMinigame = this.buildMinigame(new GameState(false, MINIGAMES.GAME));
         this.currentMinigame.onStart(this);
-        this.victory = false;
     }
 
     buildMinigame(state) {
@@ -30,7 +31,6 @@ class StateManager {
             this.wonGames.push(this.currentMinigame.game);
             const allGames = Object.values(MINIGAMES).slice(1);
             let hasWon = true;
-            debugger;
             for (let game of allGames) {
                 if (!this.wonGames.includes(game)) {
                     hasWon = false;
@@ -85,7 +85,6 @@ class StateManager {
             text("Congratulations!", width / 2 - 250, height / 3);
             text("You have completed all levels!", width / 2 - 420, height / 3 + 100);
             text("Click here to return to the ship", width / 2 - 420, height / 3 + 320);
-            debugger;
             if (mouseX < width / 2 + 500 &&
                 mouseX > width / 2 - 500 &&
                 mouseY < height / 3 + 400 &&
