@@ -97,9 +97,7 @@ class KeyGame extends Minigame {
             this.resetTimer();
 
             if (this.successCount > 9 ){
-                alert("win");
                 return new GameState(true, MINIGAMES.GAME);
-                
             }
 
             console.log("wins:" + this.successCount);
