@@ -6,7 +6,7 @@ class Minigame {
     onStop() { };
 }
 
-const MINIGAMES = { "GAME": 0, "BOLTS": 1, "NUMBERS": 2, "KEYGAME": 3, "BOXGAME": 4 }
+const MINIGAMES = { "GAME": 0, "BOLTS": 1, "NUMBERS": 2, "KEYGAME": 3, "BOXGAME": 4, "PRESSBUTTON": 5 }
 Object.freeze(MINIGAMES);
 
 class GameState {

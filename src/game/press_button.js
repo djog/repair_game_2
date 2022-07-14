@@ -1,5 +1,5 @@
 class PressButton extends Minigame {
-
+  game = MINIGAMES.PRESSBUTTON;
   win = false;
 
   onStart(stateManager){
@@ -11,19 +11,20 @@ class PressButton extends Minigame {
     this.elements.push(new GameElement(390, 500, 50, 50));
   }
 
+  onUpdate()
+  {    
+    if (this.elements[0].win && this.elements[1].win && this.elements[2].win && this.elements[3].win){
+      return new GameState(true, MINIGAMES.GAME);
+    }
+  }
+
   onDraw(){
 
     background(0);
 
-    let game = this;
-
     this.elements.forEach(function(val){
       val.drawElement();
-      if (game.win === false)
-      {
-        game.win = game.elements[0].win && game.elements[1].win && game.elements[2].win && game.elements[3].win;
-      }
-      });
+    });
     print(mouseIsPressed);
   }
 

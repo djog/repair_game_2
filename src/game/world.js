@@ -97,7 +97,7 @@ class World {
                     case 'B' : 
                     case 'C' :
                     case 'D' : 
-
+                    case 'E' : 
                         let game = Helpers.mapTileValueToGame(type);
                         if (game){
                             let hasWon = this.stateManager.wonGames.includes(game);
